@@ -6,7 +6,14 @@
 #include <windows.h>
 #include <dsound.h>
 #include <d3dx9.h>
-//===========================================================================     
+//=========================================================================== 
+#pragma warning(disable:4200) // warning C4200: nonstandard extension used : zero-sized array in struct/union (Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array)
+#pragma warning(disable:4800) // warning C4800: 'BYTE' : forcing value to bool 'true' or 'false' (performance warning)
+#pragma warning(disable:4731) // warning C4731: '???' : frame pointer register 'ebp' modified by inline assembly code
+#pragma warning(disable:4409) // warning C4409: illegal instruction size
+#pragma warning(disable:4410) // warning C4410: illegal size for operand
+
+//---------------------------------------------------------------------------    
 //
 //  All structures aligned to 4
 //
@@ -21,8 +28,8 @@
 
 #define ADDROFFSET(addr,offset) ((addr)+(offset))
 
-#ifndef _REVERSE
-#define _REVERSE(Value)          (((DWORD)(Value) << 24)|((DWORD)(Value) >> 24)|(((DWORD)(Value) << 8)&0x00FF0000)|(((DWORD)(Value) >> 8)&0x0000FF00))
+#ifndef _REV_DW
+#define _REV_DW(Value)    (((DWORD)(Value) << 24)|((DWORD)(Value) >> 24)|(((DWORD)(Value) << 8)&0x00FF0000)|(((DWORD)(Value) >> 8)&0x0000FF00))
 #endif
 //---------------------------------------------------------------------------
 // Compiler always generates Stack Frame Pointers for member functions - used 'pop EBP' to restore it
@@ -53,8 +60,8 @@ const LPSTR DlgReplacers[]  = {"Name","Race","Class","Faction","Rank","Cell","PC
 
 enum MWTopType  {tGreeting=0,tTopicName=1,tTopicText=5};
 enum MWAnimType {atLowerBodyAnim,atUpperBodyAnim,atLeftArmAnim};
-enum MWObjects  {otACTI=_REVERSE('ACTI'),otAPPA=_REVERSE('APPA'),otARMO=_REVERSE('ARMO'),otBODY=_REVERSE('BODY'),otBOOK=_REVERSE('BOOK'),otCLOT=_REVERSE('CLOT'),otCONT=_REVERSE('CONT'),otDOOR=_REVERSE('DOOR'),otINGR=_REVERSE('INGR'),otLIGH=_REVERSE('LIGH'),otLOCK=_REVERSE('LOCK'),otMISC=_REVERSE('MISC'),otPROB=_REVERSE('PROB'),otREPA=_REVERSE('REPA'),otSTAT=_REVERSE('STAT'),otWEAP=_REVERSE('WEAP'),otNPC_=_REVERSE('NPC_'),otCREA=_REVERSE('CREA'),otLEVC=_REVERSE('LEVC'),otSPEL=_REVERSE('SPEL'),otENCH=_REVERSE('ENCH'),otALCH=_REVERSE('ALCH'),otLEVI=_REVERSE('LEVI')};
-enum MWRecords  {otMACR=_REVERSE('MACR'),otMACH=_REVERSE('MACH'),otMACP=_REVERSE('MACP'),otREFR=_REVERSE('REFR'),otRACE=_REVERSE('RACE'),otCLAS=_REVERSE('CLAS'),otFACT=_REVERSE('FACT')};
+enum MWObjects  {otACTI=_REV_DW('ACTI'),otAPPA=_REV_DW('APPA'),otARMO=_REV_DW('ARMO'),otBODY=_REV_DW('BODY'),otBOOK=_REV_DW('BOOK'),otCLOT=_REV_DW('CLOT'),otCONT=_REV_DW('CONT'),otDOOR=_REV_DW('DOOR'),otINGR=_REV_DW('INGR'),otLIGH=_REV_DW('LIGH'),otLOCK=_REV_DW('LOCK'),otMISC=_REV_DW('MISC'),otPROB=_REV_DW('PROB'),otREPA=_REV_DW('REPA'),otSTAT=_REV_DW('STAT'),otWEAP=_REV_DW('WEAP'),otNPC_=_REV_DW('NPC_'),otCREA=_REV_DW('CREA'),otLEVC=_REV_DW('LEVC'),otSPEL=_REV_DW('SPEL'),otENCH=_REV_DW('ENCH'),otALCH=_REV_DW('ALCH'),otLEVI=_REV_DW('LEVI')};
+enum MWRecords  {otMACR=_REV_DW('MACR'),otMACH=_REV_DW('MACH'),otMACP=_REV_DW('MACP'),otREFR=_REV_DW('REFR'),otRACE=_REV_DW('RACE'),otCLAS=_REV_DW('CLAS'),otFACT=_REV_DW('FACT')};
 enum MWMenuIDs  {miTitle=0xF00D,miHotKeys=0xFD5D,miConsole=0xFF5F,miOptions=0xFDB2,miResting=0xFD31,miDialogue=0xFF1A,miInventory=0x80B4,miContainer=0xFF5A,miJournal=0xFE95,miBook=0xFF98,miScroll=0xFD1D,miMessageBox=0xFE02,miRestHours=0xFC45,miCGCharName=0xFDC2,miCGCharSel=0xFD4F,miCGClass=0xFF6B,miCGBirthSign=0xFFA8,miCGSummary=0xFC7C};
 enum MWAnimGroups {Idle, anIdle2, anIdle3, anIdle4, anIdle5, anIdle6, anIdle7, anIdle8, anIdle9, anIdlehh, anIdle1h, anIdle2c, anIdle2w, anIdleSwim, anIdleSpell, anIdleCrossbow, anIdleSneak, anIdleStorm, anTorch, anHit1, anHit2, anHit3, anHit4, anHit5, anSwimHit1, anSwimHit2, anSwimHit3, anDeath1, anDeath2, anDeath3, anDeath4, anDeath5, anDeathKnockDown, anDeathKnockOut, anKnockDown, anKnockOut, anSwimDeath, anSwimDeath2, anSwimDeath3, anSwimDeathKnockDown, anSwimDeathKnockOut, anSwimKnockOut, anSwimKnockDown, anSwimWalkForward, anSwimWalkBack, anSwimWalkLeft, anSwimWalkRight, anSwimRunForward, anSwimRunBack, anSwimRunLeft, anSwimRunRight, anSwimTurnLeft, anSwimTurnRight, anWalkForward, anWalkBack, anWalkLeft, anWalkRight, anTurnLeft, anTurnRight, anRunForward, anRunBack, anRunLeft, anRunRight, anSneakForward, anSneakBack, anSneakLeft, anSneakRight, anJump, anWalkForwardhh, anWalkBackhh, anWalkLefthh, anWalkRighthh, anTurnLefthh, anTurnRighthh, anRunForwardhh, anRunBackhh, anRunLefthh, anRunRighthh, anSneakForwardhh, anSneakBackhh, anSneakLefthh, anSneakRighthh, anJumphh, anWalkForward1h, anWalkBack1h, anWalkLeft1h, anWalkRight1h, anTurnLeft1h, anTurnRight1h, anRunForward1h, anRunBack1h, anRunLeft1h, anRunRight1h, anSneakForward1h, anSneakBack1h, anSneakLeft1h, anSneakRight1h, anJump1h, anWalkForward2c, anWalkBack2c, anWalkLeft2c, anWalkRight2c, anTurnLeft2c, anTurnRight2c, anRunForward2c, anRunBack2c, anRunLeft2c, anRunRight2c, anSneakForward2c, anSneakBack2c, anSneakLeft2c, anSneakRight2c, anJump2c, anWalkForward2w, anWalkBack2w, anWalkLeft2w, anWalkRight2w, anTurnLeft2w, anTurnRight2w, anRunForward2w, anRunBack2w, anRunLeft2w, anRunRight2w, anSneakForward2w, anSneakBack2w, anSneakLeft2w, anSneakRight2w, anJump2w, anSpellCast, anSpellTurnLeft, anSpellTurnRight, anAttack1, anAttack2, anAttack3, anSwimAttack1, anSwimAttack2, anSwimAttack3, anHandToHand, anCrossbow, anBowAndArrow, anThrowWeapon, anWeaponOneHand, anWeaponTwoHand, anWeaponTwoWide, anShield, anPickProbe, anInventoryHandToHand, anInventoryWeaponOneHand, anInventoryWeaponTwoHand, anInventoryWeaponTwoWide};
 
@@ -287,7 +294,7 @@ struct GLOBALS
    BOOL  (__cdecl *BookPageBackward)(PCWindow TxtClass00,short TgtWndID00,DWORD UnkRndTime,short TgtWndID01,PCWindow TxtClass01);   
    PCWindow  (__cdecl *GetWindowByID)(short WindowID);   // Both functions returns different instances of same window !!! 
    PCWindow  (__cdecl *FindWindowByID)(short WindowID);  
-       
+   void  (__cdecl *UpdateAC)(void);     
         
         
    PGLOBALS __fastcall Initialize(void)    
@@ -309,6 +316,7 @@ struct GLOBALS
      SetAddress(this->ChangeDlgTopic,ADDROFFSET(EXTMODBASE, 0x001C00D0 ));   
      SetAddress(this->ShowPopUpMessage,ADDROFFSET(EXTMODBASE, 0x001F90C0 ));  
      SetAddress(this->OutConsoleMessage,ADDROFFSET(EXTMODBASE, 0x0000f970 )); 
+     SetAddress(this->UpdateAC,ADDROFFSET(EXTMODBASE, 0x001CDC30 ));
 
      // Global variables
      SetAddress(this->MouseInvAxisY,ADDROFFSET(EXTMODBASE, 0x003D16DD ));

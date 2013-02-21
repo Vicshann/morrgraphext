@@ -1,5 +1,5 @@
 #include "ModuleInformation.h"
-#include "../log.h"
+#include "LogTools.h"
 #include <stdlib.h>
 #define _PATCH
 #include "Patch.h"
@@ -439,8 +439,8 @@ bool ApplyPatch(PatchTree *child, bool success, Sequence *branchTree, DWORD dwVe
 				message = strcat(strcat(strcpy(new char[MAX_PATH], "Patch: Problems with patch applying in section \""), patch->Section), "\"");
 			}else success = ApplyPatch(patch->Child, success, branchTree, dwVersionLS, isMorrowind, hInstanceOffset) ? success : false;
 			if(message) {
-				if(success && !isMorrowind) LOG::open(PATCH_LOG_NAME);
-				LOG::logline(message);
+				if(success && !isMorrowind) Logger::CreateLogFile(PATCH_LOG_NAME);
+				_LogLine(message);
 				success = false;
 				delete[] message;
 			}
@@ -459,7 +459,7 @@ void PatchModuleMemory(HINSTANCE hModule, LPSTR lpFilename, bool isMorrowind) {
 	do {
 		if((_stricmp(lpFilename, file->Section)==0)&&(file->Removed?!(*file->Removed):true)&&(file->Checked?(*file->Checked):true)&&file->Child) {
 			if(ApplyPatch(file->Child, true, NULL, GetModuleNameAndVersion(hModule,NULL,NULL), isMorrowind, DWORD(hModule)-DEFAULT_INSTANCE_DLL)) {
-				if(isMorrowind) LOG::logline("Patch has been applied to %s successfully", file->Section);
+				if(isMorrowind) _LogLine("Patch has been applied to %s successfully", file->Section);
 			}
 			break;
 		}
@@ -478,7 +478,7 @@ void PatchProcessMemory(HINSTANCE hModule, LPSTR origFilename, DWORD dwVersionLS
 			if(ApplyPatch(file->Child, true, NULL, 
 				hModuleInstance == hInstance ? dwVersionLS : GetModuleNameAndVersion(hModuleInstance, NULL, NULL), isMorrowind,
 				DWORD(hModuleInstance) - (hModuleInstance == hInstance ? DEFAULT_INSTANCE_EXE : DEFAULT_INSTANCE_DLL ))) {
-				if(isMorrowind) LOG::logline("Patch has been applied to %s successfully", file->Section);
+				if(isMorrowind) _LogLine("Patch has been applied to %s successfully", file->Section);
 			}
 		}
 	}while(file = file->Next);

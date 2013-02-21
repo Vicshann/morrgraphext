@@ -55,8 +55,40 @@
     <Filter Include="Patch">
       <UniqueIdentifier>{87ef429a-22b5-47f9-b599-f43689c67c54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Localization">
-      <UniqueIdentifier>{7a28415f-27a5-4ad5-bcfb-324d078bb8fa}</UniqueIdentifier>
+    <Filter Include="Common">
+      <UniqueIdentifier>{1b33378c-8194-4572-8564-6ebc8a2329b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\MWRevSrc">
+      <UniqueIdentifier>{79f16c6d-4194-40b6-98cc-719479196e66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Tools">
+      <UniqueIdentifier>{56740ab1-c501-43a7-9b87-587370390999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Speech">
+      <UniqueIdentifier>{796d19d7-e818-4701-84d8-64c74ea5e38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Speech\SAPI">
+      <UniqueIdentifier>{666216b3-7106-4318-b4c1-5549aa735f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MODULES">
+      <UniqueIdentifier>{fcbf7d75-b1f8-4294-8623-af0556664787}</UniqueIdentifier>
+      <Extensions>123</Extensions>
+    </Filter>
+    <Filter Include="MODULES\MorrTextMod">
+      <UniqueIdentifier>{d4c107df-e7e1-4a52-a845-d1c2bb1e5dd1}</UniqueIdentifier>
+      <Extensions>A</Extensions>
+    </Filter>
+    <Filter Include="MODULES\MWTalkyMod">
+      <UniqueIdentifier>{a30b4590-637f-41d1-bf8d-0498417451d9}</UniqueIdentifier>
+      <Extensions>A</Extensions>
+    </Filter>
+    <Filter Include="MODULES\MWCodePatch">
+      <UniqueIdentifier>{8e999bb7-e4aa-49b4-9679-2da1f4cecdb5}</UniqueIdentifier>
+      <Extensions>B</Extensions>
+    </Filter>
+    <Filter Include="MODULES\MiscPatches">
+      <UniqueIdentifier>{19d62539-41ff-4154-8990-5dd08940aa81}</UniqueIdentifier>
+      <Extensions>A</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,10 +278,93 @@
     <ClCompile Include="mge\Patch.cpp">
       <Filter>Patch</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Localization\mw_layout.cpp">
-      <Filter>Localization</Filter>
+    <ClCompile Include="mge\Assembler.c">
+      <Filter>Patch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MWRevSrc\Morrowind.cpp">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MWRevSrc\MWMisc.cpp">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MWRevSrc\MWNifModel.cpp">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MWRevSrc\MWObjects.cpp">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MWRevSrc\MWSound.cpp">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\ConvertTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\FileTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\HookTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\LogTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\MathTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\ModuleTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\PatchTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\ProcessTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Tools\StringTools.cpp">
+      <Filter>Common\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\CommonFuncs.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Containers.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Memory\MemWork.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Math\SinCos.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\MSVC\Speech\Talky.cpp">
+      <Filter>Common\Speech</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MorrTextMod\Console.cpp">
+      <Filter>MODULES\MorrTextMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MorrTextMod\DialogEngine.cpp">
+      <Filter>MODULES\MorrTextMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MorrTextMod\MorrTextMod.cpp">
+      <Filter>MODULES\MorrTextMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MWCodePatch\MWCPMod.cpp">
+      <Filter>MODULES\MWCodePatch</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MWTalkyMod\MWDerived.cpp">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MWTalkyMod\TalkyFuncs.cpp">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MWTalkyMod\TalkyHooks.cpp">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MWTalkyMod\TalkyMorrowind.cpp">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\MiscPatches\MiscPatches.cpp">
+      <Filter>MODULES\MiscPatches</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,10 +602,114 @@
     <ClInclude Include="mge\Patch.h">
       <Filter>Patch</Filter>
     </ClInclude>
-    <ClInclude Include="Log.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Localization\mw_layout.h">
-      <Filter>Localization</Filter>
+    <ClInclude Include="..\Common\MWRevSrc\Morrowind.h">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MWRevSrc\MWDefinitions.h">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MWRevSrc\MWMisc.h">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MWRevSrc\MWNifModel.h">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MWRevSrc\MWObjects.h">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MWRevSrc\MWSound.h">
+      <Filter>Common\MWRevSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\ConvertTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\FileTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\HookTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\LogTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\MathTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\ModuleTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\PatchTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\ProcessTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\StringTools.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Tools\ToolsBase.h">
+      <Filter>Common\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\afxres.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\CommonFuncs.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Containers.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Memory\MemWork.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Math\SinCos.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sapi.h">
+      <Filter>Common\Speech\SAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sapiddk.h">
+      <Filter>Common\Speech\SAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sapidef.h">
+      <Filter>Common\Speech\SAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\spdebug.h">
+      <Filter>Common\Speech\SAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sperror.h">
+      <Filter>Common\Speech\SAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sphelper.h">
+      <Filter>Common\Speech\SAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\MSVC\Speech\Talky.h">
+      <Filter>Common\Speech</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Modules.h">
+      <Filter>MODULES</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MorrTextMod\ExtensionMod.h">
+      <Filter>MODULES\MorrTextMod</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MWCodePatch\ExtensionMod.h">
+      <Filter>MODULES\MWCodePatch</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MWTalkyMod\ExtensionMod.h">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MWTalkyMod\MWDerived.h">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MWTalkyMod\TalkyFuncs.h">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MWTalkyMod\TalkyHooks.h">
+      <Filter>MODULES\MWTalkyMod</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\MiscPatches\ExtensionMod.h">
+      <Filter>MODULES\MiscPatches</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -513,5 +732,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="d3d8.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="..\Common\MSVC\HDE.asm">
+      <Filter>Common</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

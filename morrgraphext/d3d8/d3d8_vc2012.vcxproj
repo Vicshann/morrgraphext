@@ -19,17 +19,18 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -42,7 +43,8 @@
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">$(MW_PATH)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">$(Configuration)\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">
+    </LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">$(MW_PATH)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">$(Configuration)\</IntDir>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">false</IgnoreImportLibrary>
@@ -78,30 +80,38 @@
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>scriptcompiler/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Modules\MorrTextMod;.\Modules\MWTalkyMod;.\Modules\MWCodePatch;.\Modules\MiscPatches;..\Common\MWRevSrc;..\Common\MSVC;..\Common\MSVC\DirectX;..\Common\MSVC\Tools;..\Common\MSVC\Memory;..\Common\MSVC\Math;..\Common\MSVC\Speech;..\Common\MSVC\Speech\SAPI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE; DX9;D3D_DEBUG_INFO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <BufferSecurityCheck>true</BufferSecurityCheck>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <ProgramDataBaseFileName>$(IntDir)vc90.pdb</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>StdCall</CallingConvention>
       <DisableSpecificWarnings>4005;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <EnablePREfast>false</EnablePREfast>
+      <StringPooling>true</StringPooling>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <StructMemberAlignment>4Bytes</StructMemberAlignment>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;d3dx9d.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sapi.lib;Winmm.lib;dxguid.lib;dsound.lib;d3dx9.lib;d3d9.lib;d3dx9d.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d8.dll</OutputFile>
       <Version>
       </Version>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Common\MSVC\DirectX\Lib;..\Common\MSVC\Speech\SAPI\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>exports9.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -111,6 +121,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">
@@ -119,7 +130,7 @@
       <Outputs>d3d8_output.txt;%(Outputs)</Outputs>
     </CustomBuildStep>
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -130,9 +141,9 @@
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>false</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeader>
@@ -142,9 +153,13 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>StdCall</CallingConvention>
       <DisableSpecificWarnings>4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>.\Modules\MorrTextMod;.\Modules\MWTalkyMod;.\Modules\MWCodePatch;.\Modules\MiscPatches;..\Common\MWRevSrc;..\Common\MSVC;..\Common\MSVC\DirectX;..\Common\MSVC\Tools;..\Common\MSVC\Memory;..\Common\MSVC\Math;..\Common\MSVC\Speech;..\Common\MSVC\Speech\SAPI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
+      <StructMemberAlignment>4Bytes</StructMemberAlignment>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sapi.lib;Winmm.lib;dxguid.lib;dsound.lib;d3dx9.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d8.dll</OutputFile>
       <Version>
       </Version>
@@ -158,14 +173,43 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\Common\MSVC\DirectX\Lib;..\Common\MSVC\Speech\SAPI\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Localization\mw_layout.cpp" />
+    <ClCompile Include="..\Common\MSVC\CommonFuncs.cpp" />
+    <ClCompile Include="..\Common\MSVC\Containers.cpp" />
+    <ClCompile Include="..\Common\MSVC\Math\SinCos.cpp" />
+    <ClCompile Include="..\Common\MSVC\Memory\MemWork.cpp" />
+    <ClCompile Include="..\Common\MSVC\Speech\Talky.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\ConvertTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\FileTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\HookTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\LogTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\MathTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\ModuleTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\PatchTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\ProcessTools.cpp" />
+    <ClCompile Include="..\Common\MSVC\Tools\StringTools.cpp" />
+    <ClCompile Include="..\Common\MWRevSrc\Morrowind.cpp" />
+    <ClCompile Include="..\Common\MWRevSrc\MWMisc.cpp" />
+    <ClCompile Include="..\Common\MWRevSrc\MWNifModel.cpp" />
+    <ClCompile Include="..\Common\MWRevSrc\MWObjects.cpp" />
+    <ClCompile Include="..\Common\MWRevSrc\MWSound.cpp" />
+    <ClCompile Include="mge\Assembler.c" />
     <ClCompile Include="mge\DInputMisc.cpp" />
     <ClCompile Include="mge\DInputWrapper.cpp" />
     <ClCompile Include="mge\MMEfunctions.cpp" />
     <ClCompile Include="mge\MWBridge.cpp" />
+    <ClCompile Include="Modules\MiscPatches\MiscPatches.cpp" />
+    <ClCompile Include="Modules\MorrTextMod\Console.cpp" />
+    <ClCompile Include="Modules\MorrTextMod\DialogEngine.cpp" />
+    <ClCompile Include="Modules\MorrTextMod\MorrTextMod.cpp" />
+    <ClCompile Include="Modules\MWCodePatch\MWCPMod.cpp" />
+    <ClCompile Include="Modules\MWTalkyMod\MWDerived.cpp" />
+    <ClCompile Include="Modules\MWTalkyMod\TalkyFuncs.cpp" />
+    <ClCompile Include="Modules\MWTalkyMod\TalkyHooks.cpp" />
+    <ClCompile Include="Modules\MWTalkyMod\TalkyMorrowind.cpp" />
     <ClCompile Include="mwse\Breakpoint.cpp" />
     <ClCompile Include="mwse\BUFSPACE.cpp" />
     <ClCompile Include="mwse\FILECACHE.cpp" />
@@ -224,14 +268,48 @@
     <ClCompile Include="mge\ForcedInitialization.cpp" />
     <ClCompile Include="mge\Integration.cpp" />
     <ClCompile Include="mge\Patch.cpp" />
-    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Localization\mw_layout.h" />
+    <ClInclude Include="..\Common\MSVC\afxres.h" />
+    <ClInclude Include="..\Common\MSVC\CommonFuncs.h" />
+    <ClInclude Include="..\Common\MSVC\Containers.h" />
+    <ClInclude Include="..\Common\MSVC\Math\SinCos.h" />
+    <ClInclude Include="..\Common\MSVC\Memory\MemWork.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sapi.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sapiddk.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sapidef.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\spdebug.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sperror.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\SAPI\sphelper.h" />
+    <ClInclude Include="..\Common\MSVC\Speech\Talky.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\ConvertTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\FileTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\HookTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\LogTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\MathTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\ModuleTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\PatchTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\ProcessTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\StringTools.h" />
+    <ClInclude Include="..\Common\MSVC\Tools\ToolsBase.h" />
+    <ClInclude Include="..\Common\MWRevSrc\Morrowind.h" />
+    <ClInclude Include="..\Common\MWRevSrc\MWDefinitions.h" />
+    <ClInclude Include="..\Common\MWRevSrc\MWMisc.h" />
+    <ClInclude Include="..\Common\MWRevSrc\MWNifModel.h" />
+    <ClInclude Include="..\Common\MWRevSrc\MWObjects.h" />
+    <ClInclude Include="..\Common\MWRevSrc\MWSound.h" />
     <ClInclude Include="mge\DInputHeader.h" />
     <ClInclude Include="mge\MME function defs.h" />
     <ClInclude Include="mge\MWBridge.h" />
+    <ClInclude Include="Modules\MiscPatches\ExtensionMod.h" />
+    <ClInclude Include="Modules\Modules.h" />
+    <ClInclude Include="Modules\MorrTextMod\ExtensionMod.h" />
+    <ClInclude Include="Modules\MWCodePatch\ExtensionMod.h" />
+    <ClInclude Include="Modules\MWTalkyMod\ExtensionMod.h" />
+    <ClInclude Include="Modules\MWTalkyMod\MWDerived.h" />
+    <ClInclude Include="Modules\MWTalkyMod\TalkyFuncs.h" />
+    <ClInclude Include="Modules\MWTalkyMod\TalkyHooks.h" />
     <ClInclude Include="mwse\ADDRESSSPACE.h" />
     <ClInclude Include="mwse\Breakpoint.h" />
     <ClInclude Include="mwse\BUFSPACE.h" />
@@ -307,10 +385,12 @@
     <ClInclude Include="mge\ForcedInitialization.h" />
     <ClInclude Include="mge\Integration.h" />
     <ClInclude Include="mge\Patch.h" />
-    <ClInclude Include="Log.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
+    <MASM Include="..\Common\MSVC\HDE.asm">
+      <FileType>Document</FileType>
+    </MASM>
     <None Include="..\Shaders\distantland\Depth.fx" />
     <None Include="..\Shaders\distantland\Fog.hlsl" />
     <None Include="..\Shaders\distantland\InGame.fx" />
@@ -323,5 +403,6 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

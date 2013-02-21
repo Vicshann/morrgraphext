@@ -8,7 +8,7 @@
 #define WINVER 0x0500
 
 #include <windows.h>
-#include "../log.h"
+#include "LogTools.h"
 #include "MGEversion.h"
 
 #define DIRECT3D_VERSION 0x0900
@@ -20,7 +20,7 @@
 #ifdef RELEASE
 #define DEBUGSTRING(a)
 #else
-#define DEBUGSTRING(a) { OutputDebugString(a); LOG::logline(a); }
+#define DEBUGSTRING(a) { OutputDebugString(a); _LogLine(a); }
 #endif
 
 #ifdef _D3D8
@@ -47,8 +47,10 @@ EX sJointInfo JointInfo;
 #undef EX
 
 extern DWORD MWVersion;
-
-#define ERRORMSG(msg)  { LOG::logline(msg); MessageBoxA(0,msg,"MGE Error",0); ExitProcess(-1); }
+ 
+#define MSG(a) { _LogLine(msg); }
+#define FATALERROR(a) {_LogLine(a); ExitProcess(-1); }
+#define ERRORMSG(msg)  { _LogLine(msg); MessageBoxA(0,msg,"MGE Error",0); ExitProcess(-1); }
 #define ZeroStruct(a) { ZeroMemory(&a,sizeof(a)); }
 #define ZeroPointer(a) { ZeroMemory(a,sizeof(*a)); }
 #define InitPointer(a,b) { a=new b(); ZeroPointer(a); }

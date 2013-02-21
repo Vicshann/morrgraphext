@@ -5,7 +5,7 @@
 #include "mge/Patch.h"
 #include "main.h"
 #include <stdio.h>
-
+#include "Modules/Modules.h"
 
 /****** TODO: Check whether below notes are still valid
 
@@ -78,7 +78,9 @@ BOOL _stdcall DllMain (HANDLE hModule, DWORD reason, void * unused) {
 	if (!iniLoaded) {
 		ERRORMSG ("Error: MGE is not configured. Please run MGEgui to configure it before launching Morrowind.");
 	}
-	Initialized = !BitTst (&MGEFlags, MGE_DISABLED_BIT);
+	Initialized = !BitTst (&MGEFlags, MGE_DISABLED_BIT);   // ????!!!! Vicshann
+ 
+    if(Initialized)LoadModules((HMODULE)hModule);   // Load all Modules (Do open a LOG file before this call!) // Vicshann
 
 	HANDLE MWSEpipe;
 	HANDLE MGEpipe;
@@ -93,23 +95,23 @@ BOOL _stdcall DllMain (HANDLE hModule, DWORD reason, void * unused) {
 			PIPE_UNLIMITED_INSTANCES, 4096, 4096, 20000, NULL
 		);
 		if (MWSEpipe == INVALID_HANDLE_VALUE || MWSEpipe2 == INVALID_HANDLE_VALUE) {
-			LOG::log ("Failed to create mge-mwse pipe\r\n");
+			_LogLine("Failed to create mge-mwse pipe");
 			return false;
 		}
-		MGEpipe = CreateFile ("\\\\.\\pipe\\MWSEMGEpipe", GENERIC_WRITE|GENERIC_READ,0,NULL,OPEN_EXISTING,0,NULL);
+		MGEpipe  = CreateFile ("\\\\.\\pipe\\MWSEMGEpipe",  GENERIC_WRITE|GENERIC_READ,0,NULL,OPEN_EXISTING,0,NULL);
 		MGEpipe2 = CreateFile ("\\\\.\\pipe\\MWSEMGEpipe2", GENERIC_WRITE|GENERIC_READ,0,NULL,OPEN_EXISTING,0,NULL);
 		if (MGEpipe == INVALID_HANDLE_VALUE || MGEpipe2 == INVALID_HANDLE_VALUE) {
-			LOG::log ("Failed to open mge-mwse pipe\r\n");
+			_LogLine("Failed to open mge-mwse pipe");
 			return false;
 		}
 	} else MWSEpipe = INVALID_HANDLE_VALUE;
 
-	if (MGEFlags & MWSE_DISABLED) LOG::log ("MWSE: Disabled\r\n");
-	else MWSEOnProcessStart (MWSEpipe);
+	if (MGEFlags & MWSE_DISABLED) _LogLine("MWSE: Disabled");
+	 else MWSEOnProcessStart (MWSEpipe);
 	if (Initialized) {
 		MGEOnProcessStart (MGEpipe);
 		DInputOnProcessStart ();
-	} else LOG::log ("MGE: Disabled\r\n");
+	} else _LogLine("MGE: Disabled");
 
 	return true;
 }
@@ -124,9 +126,11 @@ BOOL IsMorrowind () {
 	char *origFilename = new char[MAX_PATH];
 	MWVersion = GetModuleNameAndVersion(hInstance, origFilename, MAX_PATH);
 	if (!_stricmp (origFilename, "Morrowind.exe")) {
-		LOG::open ("mwse-mge log.txt");
-		LOG::log (WelcomeMessage);
-		LOG::log ("DLL injected\r\n");
+        Logger::LogProc = Logger::LogToFile;
+        Logger::BinProc = Logger::LogBinToFile;
+        Logger::CreateLogFile("mwse-mge_log.txt");		
+		_LogText((LPSTR)&WelcomeMessage);
+		_LogLine("DLL injected");
 		if (!MWVersion) {
 			ERRORMSG ("Unable to get Morrowind's version number.");
 		}

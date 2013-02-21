@@ -2889,7 +2889,7 @@ public:
 		}
 
 		if (!TriedOnce) {
-			if (MGEFlags & MWE_DISABLED) LOG::log ("MWE: Disabled\r\n");
+			if (MGEFlags & MWE_DISABLED) _LogLine("MWE: Disabled");
 			else InjectMWE(c);
 			if (!PatchDisabled) { delete lpPatchTree; lpPatchTree = NULL; }
 			TriedOnce = true;
@@ -2973,7 +2973,7 @@ public:
 				break;
 			}
 			hr = RealDevice->CreateTexture (e->BackBufferWidth, e->BackBufferHeight, 1, D3DUSAGE_DEPTHSTENCIL, fmt, D3DPOOL_DEFAULT, &DepthTexture, 0);
-			if (FAILED (hr)) FATALERROR ("Unsupported z-buffer format");
+			if (FAILED (hr)) FATALERROR("Unsupported z-buffer format");
 			DepthTexture->GetSurfaceLevel (0, &DepthBuffer);
 			RealDevice->SetDepthStencilSurface (DepthBuffer);
 			RealDevice->SetRenderState (D3DRS_ZENABLE, 1);

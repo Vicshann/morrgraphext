@@ -45,11 +45,11 @@ TES3MACHINE::TES3MACHINE()
 	,executable(new BUFSPACE(SCRIPTMEM_SIZE))
 {
 	if(!AddAddressSpace(SCRIPTMEM_VPOS,executable))
-		LOG::log("TES3MACHINE: AddAddressSpace SCRIPTMEM failed\n");
+		_LogLine("TES3MACHINE: AddAddressSpace SCRIPTMEM failed");
 	if(!AddAddressSpace(STACKMEM_VPOS, new BUFSPACE(STACKMEM_SIZE)))
-		LOG::log("TES3MACHINE: AddAddressSpace STACKMEM failed\n");
+		_LogLine("TES3MACHINE: AddAddressSpace STACKMEM failed");
 	if(!AddAddressSpace(GENERALMEM_VPOS, new PROCESSMEM(GENERALMEM_VPOS,GENERALMEM_SIZE)))
-		LOG::log("TES3MACHINE: AddAddressSpace GENERALMEM failed\n");
+		_LogLine("TES3MACHINE: AddAddressSpace GENERALMEM failed");
 
 	AddInstruction(CALL,new INSTCALL(*this));
 	AddInstruction(CALLSHORT,new INSTCALLSHORT(*this));
@@ -552,7 +552,7 @@ const char* TES3MACHINE::GetString(VPVOID addr)
 	const char* result= 0;
 	VMBYTE blen= 0;
 	
-//	LOG::log("TES3MACHINE::GetString(%lx)\n",addr);
+//	_LogLine("TES3MACHINE::GetString(%lx)",addr);
 	if(addr && (LPVOID)addr<(LPVOID)32767)
 	{
 		if(ReadMem(addr,&blen,sizeof(blen)))
@@ -573,7 +573,7 @@ const char* TES3MACHINE::GetString(VPVOID addr)
 //	if(!printable)
 //		printable= "null";
 		
-//	LOG::log("%s= TES3MACHINE::GetString(%lx)\n",printable,addr);
+//	_LogLine("%s= TES3MACHINE::GetString(%lx)",printable,addr);
 	return result;
 }
 
@@ -584,11 +584,11 @@ bool TES3MACHINE::dumpmem(VPVOID ptr, int size)
 	BYTE* buf= new BYTE[size];
 	if(ReadMem(ptr,buf,size))
 	{
-		LOG::logbinary(buf,size);
+		_LogBinary(buf,size);
 		result= true;
 	}
 	else
-		LOG::log("dumpmem: ReadMem failed");
+		_LogLine("dumpmem: ReadMem failed");
 	delete[] buf;
 	return result;
 }
@@ -598,19 +598,19 @@ void TES3MACHINE::dumpscriptstack(void)
 	VMREGTYPE sp= 0;
 	if(GetRegister(SP,sp))
 	{
-		LOG::log("script sp %lx\n",sp);
+		_LogLine("script sp %lx",sp);
 		int size= 0-sp;
 		dumpmem((VPVOID)sp,size<64?size:64);
 	}
 	else
-		LOG::log("dumpscriptstack: GetRegister failed");
+		_LogLine("dumpscriptstack: GetRegister failed");
 }
 
 void TES3MACHINE::dumpscript(void)
 {
-	LOG::log("Stack at %lx\n",scriptaddr);
-	LOG::logbinary((LPVOID)&script,sizeof(script));
-	LOG::log("SCDT\n");
+	_LogLine("Stack at %lx",scriptaddr);
+	_LogBinary((LPVOID)&script,sizeof(script));
+	_LogLine("SCDT");
 	dumpmem(script.scdt,script.scdtlength);
 }
 
@@ -620,18 +620,18 @@ void TES3MACHINE::dumptemplate(VPTEMPLATE ptempl)
 	char buf[256];
 	if(ReadMem((VPVOID)ptempl,(void*)&templ,sizeof(TES3TEMPLATE)))
 	{
-		LOG::log("Template from %lx\n",ptempl);
-		LOG::logbinary((void*)&templ,sizeof(TES3TEMPLATE));
+		_LogLine("Template from %lx",ptempl);
+		_LogBinary((void*)&templ,sizeof(TES3TEMPLATE));
 		if(ReadMem((VPVOID)templ.objectid,buf,32))
 		{
-			LOG::log("ObjectID from %lx\n",templ.objectid);
-			LOG::logbinary(buf,32);
+			_LogLine("ObjectID from %lx",templ.objectid);
+			_LogBinary(buf,32);
 		}
 		else
-			LOG::log("dumpobject: ObjectID failed\n");
+			_LogLine("dumpobject: ObjectID failed");
 	}
 	else
-		LOG::log("dumpobject: Template failed\n");
+		_LogLine("dumpobject: Template failed");
 }
 
 void TES3MACHINE::dumpobject(VPREFERENCE pref)
@@ -726,47 +726,47 @@ void TES3MACHINE::dumpobjects(void)
 	VPVOID pvariables= 0;
 	TES3VARIABLES variables;
 	
-	LOG::log("Stack from %lx\n",context.Esp);
+	_LogLine("Stack from %lx",context.Esp);
 	if(!dumpmem((VPVOID)context.Esp,64))
-		LOG::log("dump: Stack failed\n");
+		_LogLine("dump: Stack failed");
 		
-	LOG::log("Base from %lx\n",context.Ebp);
+	_LogLine("Base from %lx",context.Ebp);
 	if(!dumpmem((VPVOID)context.Ebp,64))
-		LOG::log("dump: Stack failed\n");
+		_LogLine("dump: Stack failed");
 
-	LOG::log("View Target:\n");
+	_LogLine("View Target:");
 	if(ReadMem((VPVOID)reltolinear(MASTER2_IMAGE),&master2,sizeof(master2)))
 	{
-		LOG::log("master2= %lx\n",master2);
+		_LogLine("master2= %lx",master2);
 		if(ReadMem(master2+0x4c+0x9c,&target,sizeof(target)))
 			dumpobject((VPREFERENCE)target);
 		else
-			LOG::log("dump: target failed\n");
+			_LogLine("dump: target failed");
 	}
 	else
-		LOG::log("dump: ViewData failed\n");
+		_LogLine("dump: ViewData failed");
 
-	LOG::log("Script Local Variables\n");
+	_LogLine("Script Local Variables");
 	dumpobject((VPREFERENCE)context.Ecx);
 	
 	if(ReadMem((VPVOID)reltolinear(LOCALVARIABLES_IMAGE),&pvariables,sizeof(pvariables))
 		&& ReadMem(pvariables,&variables,sizeof(variables)))
 	{
-		LOG::log("LOCALVARIABLES from %lx\n",pvariables);
-		LOG::logbinary(&variables,sizeof(variables));
+		_LogLine("LOCALVARIABLES from %lx",pvariables);
+		_LogBinary(&variables,sizeof(variables));
 	}
 	else
-		LOG::log("dump: LOCALVARIABLES failed\n");
+		_LogLine("dump: LOCALVARIABLES failed");
 		
-	LOG::log("script at %lx\n",scriptaddr);
-	LOG::logbinary((LPVOID)&script,sizeof(script));
+	_LogLine("script at %lx",scriptaddr);
+	_LogBinary((LPVOID)&script,sizeof(script));
 }
 
 void TES3MACHINE::searchforscripttarget(void)
 {
 	const Context& context= GetFlow();
 	DWORD scripttarget= context.Ecx;
-	LOG::log("Searching for script target %lx\n",scripttarget);
+	_LogLine("Searching for script target %lx",scripttarget);
 
 	for(VPVOID pagestart= (VPVOID)0;pagestart<(VPVOID)0x80000000;pagestart+= 0x1000)
 	{
@@ -777,7 +777,7 @@ void TES3MACHINE::searchforscripttarget(void)
 			{
 				DWORD val= *(DWORD*)&buf[i];
 				if(val==scripttarget)
-					LOG::log("found scripttarget pointer %lx at %lx\n",val,pagestart+i);
+					_LogLine("found scripttarget pointer %lx at %lx",val,pagestart+i);
 			}
 		}
 	}

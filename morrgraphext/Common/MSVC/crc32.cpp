@@ -1,7 +1,8 @@
 // $Id: crc32.cpp,v 1.1 2005-09-06 19:02:30 AngelD Exp $ 
 
-#include "stdafx.h"
+#include "crc32.h"
 
+//---------------------------------------------------------------------------
 const DWORD  crc_table[256] = {
   0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL, 0x076dc419L,
   0x706af48fL, 0xe963a535L, 0x9e6495a3L, 0x0edb8832L, 0x79dcb8a4L,
@@ -57,12 +58,14 @@ const DWORD  crc_table[256] = {
   0x2d02ef8dL
 };
 
+//---------------------------------------------------------------------------
 #define DO1(buf) crc = crc_table[((int)crc ^ (*buf++)) & 0xff] ^ (crc >> 8);
 #define DO2(buf)  DO1(buf); DO1(buf);
 #define DO4(buf)  DO2(buf); DO2(buf);
 #define DO8(buf)  DO4(buf); DO4(buf);
 
-DWORD crc32(DWORD crc, PBYTE buf, int len)
+//---------------------------------------------------------------------------
+DWORD _stdcall DoCRC32(DWORD crc, PBYTE buf, int len)
 {
     crc = crc ^ 0xffffffffL;
     while (len >= 8)
@@ -76,4 +79,5 @@ DWORD crc32(DWORD crc, PBYTE buf, int len)
     }while (--len);
     return crc ^ 0xffffffffL;
 };
+//---------------------------------------------------------------------------
 

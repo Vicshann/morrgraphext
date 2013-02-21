@@ -79,17 +79,17 @@ bool VIRTUALMACHINE::AccessMem(MEMACCESSOR& access, VPVOID addr, VOID* buf, VMSI
 	VMSIZE start= (VMSIZE)addr;
 	long long end= (long long)start+size;
 	int loop= 0;
-//	LOG::log("VIRTUALMACHINE::AccessMem(xxx,%lx,%lx)\n",addr,size);
+//	_LogLine("VIRTUALMACHINE::AccessMem(xxx,%lx,%lx)",addr,size);
 	
 	ADDRESSSPACEMAP::iterator it= memory.begin();
 	ADDRESSSPACEMAP::iterator lim= memory.end();
 	while(result && size>0 && it!=lim)
 	{
-//		LOG::log("VIRTUALMACHINE::AccessMem loop %d, size %lx\n",++loop,size);
+//		_LogLine("VIRTUALMACHINE::AccessMem loop %d, size %lx",++loop,size);
 		ADDRESSSPACE* mem= it->second;
 		if(!mem)
 		{
-//			LOG::log("VIRTUALMACHINE::AccessMem: bad mem\n");
+//			_LogLine("VIRTUALMACHINE::AccessMem: bad mem");
 			result= false;
 			continue;
 		}

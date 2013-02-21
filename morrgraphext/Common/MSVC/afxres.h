@@ -1,4 +1,4 @@
-// Adaptation fo VS Express Edition
+// Adaptation for the VisualStudio: Express Edition
 
 #define APSTUDIO_HIDDEN_SYMBOLS
 #include "windows.h"

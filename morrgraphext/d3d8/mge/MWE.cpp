@@ -1,4 +1,4 @@
-#include "../log.h"
+#include "LogTools.h"
 #include "MWE.h"
 #include "MWEImproving.h"
 
@@ -33,7 +33,7 @@ bool InjectMWE(HWND hMorrowindWindow) {
 	HMODULE hMWEdll = LoadLibrary(MWE_DLL_PATH);
 	if(hMWEdll == NULL)
 	{
-		LOG::logline("MWE: failed to load DLL\r\n");
+		_LogLine("MWE: failed to load DLL\r\n");
 		return false;
 	}
 
@@ -111,7 +111,7 @@ bool InjectMWE(HWND hMorrowindWindow) {
 		TransferData(3,dwPID, hMorrowindWindow,lpdwMemAddress,cKey,lpdwSlider,0);
 		if(InjectDll(hMorrowindWindow))
 		{
-			LOG::logline("MWE contributers: Aerelorn, Tonto, Cid\r\nMWE: DLL injected\r\n");
+			_LogLine("MWE contributers: Aerelorn, Tonto, Cid\r\nMWE: DLL injected\r\n");
 			return true;
 		}
 		else
@@ -121,7 +121,7 @@ bool InjectMWE(HWND hMorrowindWindow) {
 	}
 	else
 	{
-		LOG::logline("MWE: incorrect DLL\r\n");
+		_LogLine("MWE: incorrect DLL\r\n");
 		return false;
 	}
 }

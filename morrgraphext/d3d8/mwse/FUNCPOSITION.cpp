@@ -129,12 +129,12 @@ bool FUNCPCCELLID::execute(void)
 				cellid=(const char*)cellname->id;
 		}
 		cellid=	strings.add(cellid);
-//		LOG::log("%s = PCCELLID()\n",cellid);
+//		_LogLine("%s = PCCELLID()",cellid);
 		result= machine.push((VMREGTYPE)cellid);
 	}
 	catch(...)
 	{
-		LOG::log("PCCELLID() exception\n");
+		_LogLine("PCCELLID() exception");
 		result= false;
 	}
 			

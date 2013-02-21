@@ -36,10 +36,10 @@ static bool ChangeReference(VPVOID pscript)
 				result= true;
 			}
 			else
-				LOG::log("ChangeReference: Interrupt failed\n");
+				_LogLine("ChangeReference: Interrupt failed");
 		}
 		else
-			LOG::log("ChangeReference: SetScript failed: %s\n");
+			_LogLine("ChangeReference: SetScript failed: %s");
 	}
 
 	return result;
@@ -68,13 +68,13 @@ static void OnDecode(Context* context) {
 					context->Ebp= (DWORD)ip;
 				}
 				else
-					LOG::log("OnDecode: GetInstruction failed\n");
+					_LogLine("OnDecode: GetInstruction failed");
 			}
 			else
-				LOG::log("OnDecode: GetRegister(IP) failed\n");
+				_LogLine("OnDecode: GetRegister(IP) failed");
 		}
 		else
-			LOG::log("OnDecode: SetRegister(IP) failed\n");
+			_LogLine("OnDecode: SetRegister(IP) failed");
 	}
 }
 
@@ -109,16 +109,16 @@ static void OnRunFuncIdxError(Context* context) {
 						if(HWbreakpoint) AddBreakpoint(HWbreakpoint->getid(), OnOtherBreakpoint);
 					}
 					else
-						LOG::log("OnRunFuncIdxError: WriteMem IP failed\n");
+						_LogLine("OnRunFuncIdxError: WriteMem IP failed");
 				}
 				else
-					LOG::log("OnRunFuncIdxError: GetRegister(IP) post run failed\n");
+					_LogLine("OnRunFuncIdxError: GetRegister(IP) post run failed");
 			}
 			else
-				LOG::log("OnRunFuncIdxError: GetRegister(IP) pre run failed\n");
+				_LogLine("OnRunFuncIdxError: GetRegister(IP) pre run failed");
 		}
 		else
-			LOG::log("OnRunFuncIdxError: ReadMem pscript failed: %s\n");
+			_LogLine("OnRunFuncIdxError: ReadMem pscript failed: %s");
 	}
 }
 
@@ -142,12 +142,12 @@ void MWSEOnProcessStart(HANDLE pipe) {
 	HANDLE h=CreateFileA("mge3\\mwse", GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
 	if(h!=INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
-		LOG::logline("MWSE: Disabled");
+		_LogLine("MWSE: Disabled");
 		return;
 	}
-	LOG::logline("MWSE: setting page protection");
+	_LogLine("MWSE: setting page protection");
 	SetupPageProtection();
-	LOG::logline("MWSE: setting initial breakpoints");
+	_LogLine("MWSE: setting initial breakpoints");
 	AddBreakpoint(BP_RUNSCRIPT, OnRunScript);
 	AddBreakpoint(BP_FIXUPSCRIPT, OnFixupScript);
 

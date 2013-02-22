@@ -1,4 +1,5 @@
 
+#include <windows.h>
 #include "ExtensionMod.h"
 
 using namespace MODULENAME;

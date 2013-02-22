@@ -165,7 +165,7 @@ UINT DEFCALL CTalky::SetVoice(UINT VoiceIndex)
 
  if(!this->Voice || !this->VoicesList)return 5;
  this->VoicesList->get_Count(&Count);
- if((long)VoiceIndex >= Count)return 4;
+ if(VoiceIndex >= Count)return 4;
  if(this->VoicesList->Item(VoiceIndex, &Token))return 3;
  this->Voice->putref_Voice(Token);
  Token->Release();    // !!!!!!!!!!!!!!!!

@@ -30,7 +30,7 @@ LPSTR _stdcall ConvertToHexDW(DWORD Value, DWORD MaxDigits, LPSTR Number, bool U
  DWORD DgCnt;
  DWORD Case;
 
- for(int ctr=0;ctr < (int)MaxDigits;ctr++){Number[ctr]='0';Number[ctr+1]=0;}
+ for(int ctr=0;ctr<MaxDigits;ctr++){Number[ctr]='0';Number[ctr+1]=0;}
  if(UpCase)Case = 0;
    else Case = 16;
  for(DgCnt = 8;DgCnt > 0;DgCnt--)

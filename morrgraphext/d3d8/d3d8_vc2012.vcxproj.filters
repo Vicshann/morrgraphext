@@ -55,6 +55,9 @@
     <Filter Include="Patch">
       <UniqueIdentifier>{87ef429a-22b5-47f9-b599-f43689c67c54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Localization">
+      <UniqueIdentifier>{7a28415f-27a5-4ad5-bcfb-324d078bb8fa}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{1b33378c-8194-4572-8564-6ebc8a2329b4}</UniqueIdentifier>
     </Filter>
@@ -70,23 +73,23 @@
     <Filter Include="Common\Speech\SAPI">
       <UniqueIdentifier>{666216b3-7106-4318-b4c1-5549aa735f6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MODULES">
+    <Filter Include="Modules">
       <UniqueIdentifier>{fcbf7d75-b1f8-4294-8623-af0556664787}</UniqueIdentifier>
       <Extensions>123</Extensions>
     </Filter>
-    <Filter Include="MODULES\MorrTextMod">
+    <Filter Include="Modules\MorrTextMod">
       <UniqueIdentifier>{d4c107df-e7e1-4a52-a845-d1c2bb1e5dd1}</UniqueIdentifier>
       <Extensions>A</Extensions>
     </Filter>
-    <Filter Include="MODULES\MWTalkyMod">
+    <Filter Include="Modules\MWTalkyMod">
       <UniqueIdentifier>{a30b4590-637f-41d1-bf8d-0498417451d9}</UniqueIdentifier>
       <Extensions>A</Extensions>
     </Filter>
-    <Filter Include="MODULES\MWCodePatch">
+    <Filter Include="Modules\MWCodePatch">
       <UniqueIdentifier>{8e999bb7-e4aa-49b4-9679-2da1f4cecdb5}</UniqueIdentifier>
       <Extensions>B</Extensions>
     </Filter>
-    <Filter Include="MODULES\MiscPatches">
+    <Filter Include="Modules\MiscPatches">
       <UniqueIdentifier>{19d62539-41ff-4154-8990-5dd08940aa81}</UniqueIdentifier>
       <Extensions>A</Extensions>
     </Filter>
@@ -278,9 +281,10 @@
     <ClCompile Include="mge\Patch.cpp">
       <Filter>Patch</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mge\Assembler.c">
-      <Filter>Patch</Filter>
+    <ClCompile Include="Localization\mw_layout.cpp">
+      <Filter>Localization</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\MWRevSrc\Morrowind.cpp">
       <Filter>Common\MWRevSrc</Filter>
@@ -602,7 +606,11 @@
     <ClInclude Include="mge\Patch.h">
       <Filter>Patch</Filter>
     </ClInclude>
+    <ClInclude Include="Log.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Localization\mw_layout.h">
+      <Filter>Localization</Filter>
+    </ClInclude>
     <ClInclude Include="..\Common\MWRevSrc\Morrowind.h">
       <Filter>Common\MWRevSrc</Filter>
     </ClInclude>
@@ -734,8 +742,6 @@
     <ResourceCompile Include="d3d8.rc" />
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="..\Common\MSVC\HDE.asm">
-      <Filter>Common</Filter>
-    </MASM>
+    <MASM Include="..\Common\MSVC\HDE.asm" />
   </ItemGroup>
 </Project>

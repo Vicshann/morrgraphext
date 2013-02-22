@@ -108,13 +108,13 @@ BOOL _cdecl __CamLookDisabling(HVL DWORD Reg_EIP,HVL DWORD Reg_EFL,HVL DWORD Reg
 //====================================================================================
 BOOL _cdecl __CamLookVertDelta(HVL DWORD Reg_EIP,HVL DWORD Reg_EFL,HVL DWORD Reg_EDI,HVL DWORD Reg_ESI,HVL MORROWIND::PCObjMACP Player,HVL DWORD Reg_ESP,HVL DWORD Reg_EBX,HVL DWORD Reg_EDX,HVL DWORD Reg_ECX,HVL DWORD Reg_EAX,...)
 {
- if(ModInfo->CamTrackingActive)Reg_EBX = ModInfo->CamRotDeltaY;      // Override vertical user`s control   (ftol)
+ if(ModInfo->CamTrackingActive)Reg_EBX = ModInfo->CamRotDeltaY;      // Override vertical user`s control
  return true;
 } 
 //====================================================================================
 BOOL _cdecl __CamLookHortDelta(HVL DWORD Reg_EIP,HVL DWORD Reg_EFL,HVL DWORD Reg_EDI,HVL DWORD Reg_ESI,HVL MORROWIND::PCObjMACP Player,HVL DWORD Reg_ESP,HVL DWORD Reg_EBX,HVL DWORD Reg_EDX,HVL DWORD Reg_ECX,HVL DWORD Reg_EAX,...)
 {
- if(ModInfo->CamTrackingActive)Reg_ECX = ModInfo->CamRotDeltaX;      // Override horizontal user`s control (ftol) 
+ if(ModInfo->CamTrackingActive)Reg_ECX = ModInfo->CamRotDeltaX;      // Override horizontal user`s control
  return true;   
 } 
 //====================================================================================

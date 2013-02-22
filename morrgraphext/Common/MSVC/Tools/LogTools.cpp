@@ -55,7 +55,7 @@ int _stdcall MakeBinaryLine16(LPSTR DstLine, PBYTE Addr, UINT Size)
  CPtr[0] = '\r';
  CPtr[1] = '\n';
  CPtr[2] = 0;
- return ((PBYTE)DstLine - CPtr)+2; 
+ return (CPtr - (PBYTE)DstLine)+2; 
 }
 //---------------------------------------------------------------------------
 bool _stdcall BackupLogFile(LPSTR BackupDir, LPSTR LogFile)

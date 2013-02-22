@@ -175,7 +175,7 @@ void _stdcall ApplyPatches(LPSTR CfgFileName, LPSTR SigFileName, LPSTR PatFileNa
  PatchTable    = (PDWORD)HeapAlloc(ModInfo->DefHeapHandle,0,(sizeof(DWORD)*PatchCount));
  PatchCount    = GetEnabledPatches((LPSTR)ConfigData, &PatchTable[1])+1;
  PatchTable[0] = 0;  // Always inject control procedures  (need for some patches)
- for(int ctr=0;(ctr < (int)PatchCount)&&(PatchCount > 1);ctr++)
+ for(int ctr=0;(ctr < PatchCount)&&(PatchCount > 1);ctr++)
   { 
    if(!IsPatchSignaturesOk(SigFileName, PatchData, PatchSize, PatchTable[ctr])){LogMsg("Signature not match for '%08X' patch!",PatchTable[ctr]);continue;}
    LogMsg("Applying patch '%08X'.", PatchTable[ctr]);

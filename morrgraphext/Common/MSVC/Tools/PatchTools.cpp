@@ -61,7 +61,7 @@ bool _stdcall IsMemSignatureMatch(PVOID Address, LPSTR Signature, int SigLen)
    ValueL = CharToHex(Signature[1]);
    if(ValueH < 0)ValueH = (Value >> 4);
    if(ValueL < 0)ValueL = (Value & 0x0F);
-   Value  = (BYTE)(((ValueH << 4) | ValueL) ^ Value);
+   Value  = (((ValueH << 4) | ValueL) ^ Value);
    Signature += 2;
    Offset += SigMult;
   }
@@ -87,7 +87,7 @@ bool _stdcall PatchBySignature(PBYTE Buffer, UINT BufSize, LPSTR OriginalSig, LP
 	   long ValueL = CharToHex(PatchSig[inx+1]);
 	   if(ValueH < 0)ValueH = (CurBuf[ctr] >> 4);    // Keep original Hi
 	   if(ValueL < 0)ValueL = (CurBuf[ctr] & 0x0F);  // Keep original Lo
-	   CurBuf[ctr] = (BYTE)((ValueH << 4) | ValueL);
+	   CurBuf[ctr] = ((ValueH << 4) | ValueL);
 	  }
 	  // --Restore memory protection
 	 Found = true;
@@ -127,7 +127,7 @@ DWORD _stdcall MemoryPatchMaskLocal(PVOID PatchAddr, LPSTR PatchMask, LPSTR Sign
    long ValueL = CharToHex(PatchMask[inx+1]);
    if(ValueH < 0)ValueH = (CurBuf[ctr] >> 4);    // Keep original Hi
    if(ValueL < 0)ValueL = (CurBuf[ctr] & 0x0F);  // Keep original Lo
-   CurBuf[ctr] = (BYTE)((ValueH << 4) | ValueL);
+   CurBuf[ctr] = ((ValueH << 4) | ValueL);
   }
  VirtualProtect(PatchAddr,PSigLen,PrevProt,&PrevProt);
  return 0;

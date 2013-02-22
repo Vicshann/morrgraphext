@@ -7,7 +7,7 @@ void _stdcall ConMessageOut(LPSTR Message, DWORD TxtAttr)
  HANDLE hConOutput;
 
  hConOutput = GetStdHandle(STD_OUTPUT_HANDLE);
- if(TxtAttr)SetConsoleTextAttribute(hConOutput,(WORD)TxtAttr);
+ if(TxtAttr)SetConsoleTextAttribute(hConOutput,TxtAttr);
  WriteConsole(hConOutput,Message,lstrlen(Message),&Result,NULL);
  WriteConsole(hConOutput,"\n\r",2,&Result,NULL);
 }	
@@ -23,8 +23,8 @@ BOOL _stdcall SetWinConsoleSizes(DWORD WndWidth, DWORD WndHeight, DWORD BufWidth
  // Need do some a VERY HARD calculations !!!
  //
  
- ConBufInfo.dwSize.X = (SHORT)BufWidth;
- ConBufInfo.dwSize.Y = (SHORT)BufHeight;
+ ConBufInfo.dwSize.X = BufWidth;
+ ConBufInfo.dwSize.Y = BufHeight;
   
  if(!SetConsoleWindowInfo(hConOutput,true,&ConBufInfo.srWindow))return false;
  if(!SetConsoleScreenBufferSize(hConOutput,ConBufInfo.dwSize))return false; 
@@ -41,7 +41,7 @@ WORD _stdcall ComputeCRC16(PVOID Buffer, DWORD BufferSize)
  Checksum  = (Checksum >> 16) + (Checksum & 0xffff);
  Checksum += (Checksum >> 16);
  Checksum =~ Checksum;
- return (WORD)Checksum;
+ return Checksum;
 }
 //---------------------------------------------------------------------------
 // Something from USB spec.
@@ -49,7 +49,7 @@ DWORD _stdcall ComputeCRC32(PVOID Buffer, DWORD BufferSize)
 {
  if(!Buffer || !BufferSize)return 0;
  DWORD Checksum = 0xFFFFFFFF;
- for(DWORD bctr=0;bctr < BufferSize;bctr++)
+ for(int bctr=0;bctr < BufferSize;bctr++)
   {
    Checksum ^= ((PBYTE)Buffer)[bctr];
    for(int ctr=0;ctr < 8;ctr++)Checksum = ((Checksum >> 1) ^ (CRC32POLYNOME & ~((Checksum & 1) - 1))); // {if((Checksum = Checksum >> 1) & 1)Checksum ^= 0xA001A001;}

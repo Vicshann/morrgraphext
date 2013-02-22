@@ -12,7 +12,7 @@ __declspec(naked)__int64 _stdcall MakeSinCos(float Sine, float Cosine)
 //------------------------------------------------------------------------------------
 void _stdcall FillSinCosTable(PQWORD SinCosTbl)
 {
- for(int ctr=0;ctr<360;ctr++)SinCosTbl[ctr] = FPUSinCosDeg32(ctr);  // Do not specify conversion, ignore the compiler warning!
+ for(int ctr=0;ctr<360;ctr++)SinCosTbl[ctr] = FPUSinCosDeg32(ctr);
 }
 //------------------------------------------------------------------------------------
 int _stdcall FindNearestDegree(PQWORD SinCosTbl, QWORD SinCos)

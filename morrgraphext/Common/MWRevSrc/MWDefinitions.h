@@ -6,14 +6,7 @@
 #include <windows.h>
 #include <dsound.h>
 #include <d3dx9.h>
-//=========================================================================== 
-#pragma warning(disable:4200) // warning C4200: nonstandard extension used : zero-sized array in struct/union (Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array)
-#pragma warning(disable:4800) // warning C4800: 'BYTE' : forcing value to bool 'true' or 'false' (performance warning)
-#pragma warning(disable:4731) // warning C4731: '???' : frame pointer register 'ebp' modified by inline assembly code
-#pragma warning(disable:4409) // warning C4409: illegal instruction size
-#pragma warning(disable:4410) // warning C4410: illegal size for operand
-
-//---------------------------------------------------------------------------    
+//===========================================================================     
 //
 //  All structures aligned to 4
 //

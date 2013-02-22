@@ -19,13 +19,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <PlatformToolset Condition="'$(VisualStudioVersion)' == '11.0'">v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -43,8 +43,7 @@
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">$(MW_PATH)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">$(Configuration)\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">
-    </LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='DX9 Debug|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">$(MW_PATH)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">$(Configuration)\</IntDir>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">false</IgnoreImportLibrary>
@@ -80,12 +79,12 @@
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\Modules\MorrTextMod;.\Modules\MWTalkyMod;.\Modules\MWCodePatch;.\Modules\MiscPatches;..\Common\MWRevSrc;..\Common\MSVC;..\Common\MSVC\DirectX;..\Common\MSVC\Tools;..\Common\MSVC\Memory;..\Common\MSVC\Math;..\Common\MSVC\Speech;..\Common\MSVC\Speech\SAPI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Modules\MorrTextMod;.\Modules\MWTalkyMod;.\Modules\MWCodePatch;.\Modules\MiscPatches;..\Common\MWRevSrc;..\Common\MSVC;..\Common\MSVC\DirectX;..\Common\MSVC\Tools;..\Common\MSVC\Memory;..\Common\MSVC\Math;..\Common\MSVC\Speech;..\Common\MSVC\Speech\SAPI;scriptcompiler/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE; DX9;D3D_DEBUG_INFO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -98,20 +97,19 @@
       <DisableSpecificWarnings>4005;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <EnablePREfast>false</EnablePREfast>
       <StringPooling>true</StringPooling>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <StructMemberAlignment>4Bytes</StructMemberAlignment>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>sapi.lib;Winmm.lib;dxguid.lib;dsound.lib;d3dx9.lib;d3d9.lib;d3dx9d.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sapi.lib;Winmm.lib;d3d9.lib;d3dx9d.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d8.dll</OutputFile>
       <Version>
       </Version>
-      <AdditionalLibraryDirectories>..\Common\MSVC\DirectX\Lib;..\Common\MSVC\Speech\SAPI\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Common\MSVC\Speech\SAPI\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>exports9.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -121,7 +119,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
-      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DX9 Release|Win32'">
@@ -154,12 +152,11 @@
       <CallingConvention>StdCall</CallingConvention>
       <DisableSpecificWarnings>4005;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>.\Modules\MorrTextMod;.\Modules\MWTalkyMod;.\Modules\MWCodePatch;.\Modules\MiscPatches;..\Common\MWRevSrc;..\Common\MSVC;..\Common\MSVC\DirectX;..\Common\MSVC\Tools;..\Common\MSVC\Memory;..\Common\MSVC\Math;..\Common\MSVC\Speech;..\Common\MSVC\Speech\SAPI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalOptions>/MP4 %(AdditionalOptions)</AdditionalOptions>
       <StructMemberAlignment>4Bytes</StructMemberAlignment>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>sapi.lib;Winmm.lib;dxguid.lib;dsound.lib;d3dx9.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sapi.lib;Winmm.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;gdi32.lib;user32.lib;Strmiids.lib;version.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)d3d8.dll</OutputFile>
       <Version>
       </Version>
@@ -173,7 +170,8 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>..\Common\MSVC\DirectX\Lib;..\Common\MSVC\Speech\SAPI\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Common\MSVC\Speech\SAPI\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -196,7 +194,7 @@
     <ClCompile Include="..\Common\MWRevSrc\MWNifModel.cpp" />
     <ClCompile Include="..\Common\MWRevSrc\MWObjects.cpp" />
     <ClCompile Include="..\Common\MWRevSrc\MWSound.cpp" />
-    <ClCompile Include="mge\Assembler.c" />
+    <ClCompile Include="Localization\mw_layout.cpp" />
     <ClCompile Include="mge\DInputMisc.cpp" />
     <ClCompile Include="mge\DInputWrapper.cpp" />
     <ClCompile Include="mge\MMEfunctions.cpp" />
@@ -268,6 +266,7 @@
     <ClCompile Include="mge\ForcedInitialization.cpp" />
     <ClCompile Include="mge\Integration.cpp" />
     <ClCompile Include="mge\Patch.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +298,7 @@
     <ClInclude Include="..\Common\MWRevSrc\MWNifModel.h" />
     <ClInclude Include="..\Common\MWRevSrc\MWObjects.h" />
     <ClInclude Include="..\Common\MWRevSrc\MWSound.h" />
+    <ClInclude Include="Localization\mw_layout.h" />
     <ClInclude Include="mge\DInputHeader.h" />
     <ClInclude Include="mge\MME function defs.h" />
     <ClInclude Include="mge\MWBridge.h" />
@@ -385,6 +385,7 @@
     <ClInclude Include="mge\ForcedInitialization.h" />
     <ClInclude Include="mge\Integration.h" />
     <ClInclude Include="mge\Patch.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

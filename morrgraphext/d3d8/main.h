@@ -4,6 +4,7 @@
 #include "mge/ModuleInformation.h"
 
 static const LPSTR LogFileName = "mwse-mge log.txt";
+
 static const char WelcomeMessage [] =
 	"Morrowind Script Extender v0.9.3\r\n"
 	VERSION "\r\n"
@@ -12,14 +13,14 @@ static const char WelcomeMessage [] =
 	"and comes with ABSOLUTELY NO WARRANTY.  Visit http://www.gnu.org/copyleft/gpl.html for details.\r\n"
 	"MWSE contributers: cdcooley, Fliggerty, Tp21, Timeslip and probably others\r\n"
 	"MGE contributers: Timeslip, LizTail, Scanti, krzymar, phal, peachykeen, d4w, tetchy, vtastek, mendres82, europop\r\n"
-	"\r\n\r\n";
+	"\r\n";
 
 
 //Tempory, until updated versions of old MGE mods have been released
 HANDLE MGEpipe2;
 HANDLE MWSEpipe2;
 
-static bool Initialized  = false;
+static bool Initialized = false;
 static bool ItsMorrowind = false;
 DWORD MWVersion = 0;
 

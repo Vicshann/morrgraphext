@@ -1,5 +1,6 @@
 // AUTHOR: Vicshann
 
+#include <windows.h>
 #include "ProcessTools.h"
 
 //====================================================================================

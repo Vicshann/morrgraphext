@@ -80,7 +80,7 @@ ScanExNames:             // scan until crash or success !!!
 	  add ESI,[EAX+ECX*4]
 	  push [ESP+40]         // LibNameToLoad
 	  call ESI
-//InLExit:
+InLExit:
   popad
   popfd
   ret 8

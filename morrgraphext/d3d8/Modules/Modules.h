@@ -36,7 +36,7 @@
 static void _stdcall LoadModules(HMODULE hDllMod)
 {
  TroubleFixerMod::CreateModule(hDllMod);
- MorrTextMod::CreateModule(hDllMod);
+// MorrTextMod::CreateModule(hDllMod);
  MWCodePatchMod::CreateModule(hDllMod);
  TalkyMorrowind::CreateModule(hDllMod);
 }

@@ -12,8 +12,6 @@
 #include <tlhelp32.h>   // needed for tool help declarations
 #include "LogTools.h"
 //===========================================================================	   
-#pragma warning(disable:4200) // warning C4200: nonstandard extension used : zero-sized array in struct/union (Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array)
-#pragma warning(disable:4800) // warning C4800: 'BYTE' : forcing value to bool 'true' or 'false' (performance warning)
 
 #ifndef TOOLCALL
 #define TOOLCALL  _stdcall
